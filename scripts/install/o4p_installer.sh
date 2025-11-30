@@ -313,6 +313,8 @@ else
   echo -e "   --> i2c arm_baudrate:        ${green}set${nocolor}"
 fi
 
+# Ensure the I2C interface is enabled via raspi-config (fixes disabled display on some Bookworm installs)
+sudo raspi-config nonint do_i2c 0 > /dev/null 2>&1
 
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
